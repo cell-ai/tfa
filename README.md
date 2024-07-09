@@ -5,6 +5,9 @@ The scripts were created in order to identify TFs from protein sequence fasta fi
 
 The diamond database is too heavy to add to github but it was constructed concatenating all fastas from AnimalTFDB4 and creating a diamond database using 'diamond make db'
 
+The program outputs several files but main results include:
++ output_homologytfs.csv -> csv table of sequences of putative TFs that presented a homology hit with known TFs and further corroborated by domain conservation analysis. An extra column displays if this sequence was also selected by deeptfactor as a probable tf.
++  output_no_homolytfs.csv -> csv table of putativa TFs that were only defined like this by deeptfactor. This output can be helpful in the identification of 'new' TF families.
 
 Usage:
 ```
