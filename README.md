@@ -1,4 +1,4 @@
-# TFA: Transcription Factor Annotator #
+# tfa: transcription factor annotator #
 
 Bash and Python pipeline developed to annotate putative Transcription Factors (TFs) from protein sequence fasta files using complementary approaches. The pipeline uses popular softwares as Diamond, InterProScan and more recent methods as DeepTFactor.
 
