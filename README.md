@@ -9,7 +9,10 @@ dataframe that contains query proteins identified by similarity and domain conse
 + Search based only on protein features: The whole fasta file is used as input for DeepTFactor. This strategy can reveal putative TFs that would not be captured by homology in the other step. It returns a table with the query sequence and the plausability of the protein being a TF based on protein features (output_no_homolytfs.csv).
 
   
-The diamond database is too heavy to add to github but it was constructed concatenating all fastas from AnimalTFDB4 and creating a diamond database using 'diamond make db'
+Requirements:
++ [diamond](https://github.com/bbuchfink/diamond)  
++ [interproscan](https://interproscan-docs.readthedocs.io/en/latest/HowToDownload.html)
++ [deeptfactor](https://bitbucket.org/kaistsystemsbiology/deeptfactor/src/master/)
 
 Usage:
 ```
