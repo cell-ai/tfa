@@ -65,10 +65,10 @@ cd "$original_dir" || exit
 
 # Step 5: Run Python analysis script
 echo "Running Python analysis script..."
-python analyze_ips_diam.py --diamond "$(basename ${input_fasta%.faa}).atfdb.1e3.txt" --ips "$(basename ${input_fasta%.faa}).ips_results.tsv" --output $(basename ${input_fasta%.faa})
+# python analyze_ips_diam.py --diamond "$(basename ${input_fasta%.faa}).atfdb.1e3.txt" --ips "$(basename ${input_fasta%.faa}).ips_results.tsv" --output $(basename ${input_fasta%.faa})
 
-python merge_all_res.py --diamond_ips_res $(basename ${input_fasta%.faa}).diamips.tfs.csv --deeptf_res "$original_dir/$(basename ${input_fasta%.faa}).deeptf.res/prediction_result.txt" --output $(basename ${input_fasta%.faa})
-
+#python merge_all_res.py --diamond_ips_res $(basename ${input_fasta%.faa}).diamips.tfs.csv --deeptf_res "$original_dir/$(basename ${input_fasta%.faa}).deeptf.res/prediction_result.txt" --output $(basename ${input_fasta%.faa})
+python tfa_process.py  --diamond "$(basename ${input_fasta%.faa}).atfdb.1e3.txt" --ips "$(basename ${input_fasta%.faa}).ips_results.tsv" --output $(basename ${input_fasta%.faa})  --deeptf_res "$original_dir/$(basename ${input_fasta%.faa}).deeptf.res/prediction_result.txt"
 # Check if the Python script ran successfully
 if [ $? -ne 0 ]; then
     echo "Error running Python analysis script"
