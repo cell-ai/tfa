@@ -21,9 +21,9 @@ The output is a dataframe (saved to file with the extension "tfa_results.csv"), 
 [5] Kim, G. B., Gao, Y., Palsson, B. O., & Lee, S. Y. (2021). DeepTFactor: A deep learning-based tool for the prediction of transcription factors. Proceedings of the National Academy of Sciences, 118(2), e2021171118.
   
 **Requirements:**
-+ [diamond](https://github.com/bbuchfink/diamond)  
-+ [interproscan](https://interproscan-docs.readthedocs.io/en/latest/HowToDownload.html)
-+ [deeptfactor](https://bitbucket.org/kaistsystemsbiology/deeptfactor/src/master/)
++ [DIAMOND](https://github.com/bbuchfink/diamond)  
++ [InterProScan](https://interproscan-docs.readthedocs.io/en/latest/HowToDownload.html)
++ [DeepTFactor](https://bitbucket.org/kaistsystemsbiology/deeptfactor/src/master/)
 
 Usage:
 ```
