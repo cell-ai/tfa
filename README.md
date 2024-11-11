@@ -27,5 +27,10 @@ The output is a dataframe (saved to file with the extension "tfa_results.csv"), 
 
 Usage:
 ```
-./tf_pipeline.sh <fasta_file> <path to atfdb4 diamond database>
+#create database for similairty search
+diamond makedb --in <fasta_file_animaltfdb4> --db <animaltfdb4_tf_db>
+
+```
+```
+./tf_pipeline.sh <fasta_file> <animaltfdb4_tf_db>
 ```
