@@ -6,6 +6,8 @@ tfa is  a pipeline developed for the annotation of putative TF sequences from pr
 
 + **protein features-based search**: The entire FASTA file is used as input for DeepTFactor [5]. This approach can identify potential TFs that might be missed by homology-based searches. The output is a table (output_no_homolytfs.csv) containing the query sequences and the probability of each protein being a TF based on its features.
 
+The output is a dataframe (saved to file with the extension "tfa_results.csv"), which contains the information of what strategy was used to identify the protein ("homology" vs. "no homology"), the DeepTFactor score, and in the case of TFs identified by homology, additional information regarding protein, TF family and domains identified is also present.
+
 **References:**
 
 [1] Shen, W. K., Chen, S. Y., Gan, Z. Q., Zhang, Y. Z., Yue, T., Chen, M. M., ... & Guo, A. Y. (2023). AnimalTFDB 4.0: a comprehensive animal transcription factor database updated with variation and expression annotations. Nucleic acids research, 51(D1), D39-D45.
