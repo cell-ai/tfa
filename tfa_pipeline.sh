@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#useful variables
-deeptfactor_path="/project/yutaka/spiderNetwork/local/deeptfactor"
-
 # Check for input fasta file and database path
 if [ "$#" -ne 2 ]; then
     echo "Usage: $0 <protein_fasta_file> <path_to_atfdb_db>"
@@ -54,8 +51,7 @@ echo "Running DeepTFactor..."
 original_dir=$(pwd)
 og_fasta="$original_dir/$input_fasta"
 
-#cd /project/yutaka/spiderNetwork/local/deeptfactor || exit
-cd "$deeptfactor_path" || exit
+cd /project/yutaka/spiderNetwork/local/deeptfactor || exit
 
 python tf_running.py -cpu 50 -i "$og_fasta" -o "$original_dir/$(basename ${input_fasta%.faa}).deeptf.res"
 

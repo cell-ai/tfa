@@ -46,7 +46,7 @@ def filter_test(value):
     value_set = set(value) if isinstance(value, list) else {value}
     matching_keys = []
     for idx, ref_set in enumerate(ref_sets_list):
-        if value_set == ref_set:  # Check for exact match
+        if ref_set.issubset(value_set):  
             matching_keys.append(list(family_dict.keys())[idx])
     return len(matching_keys) > 0, matching_keys
 
@@ -102,6 +102,7 @@ for dictio in filtered_query:
             records.append((query, query_values, details['family_keys']))
 
         df = pd.DataFrame(records, columns=['qseqid', 'architecture', 'tffam'])
+        df["tffam"] = df["tffam"].apply(lambda x: x if len(x) > 1 else x[0])
     filtered_dfs.append(df)
 
 final_dfs=[]
