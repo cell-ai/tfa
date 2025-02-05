@@ -32,6 +32,8 @@ Usage:
 ```
 #create database for similairty search
 diamond makedb --in <fasta_file_animaltfdb4> --db <animaltfdb4_tf_db>
+```
+```
 #run tfa
-./tfa_pipeline.sh <fasta_file> <animaltfdb4_tf_db>
+tfa_pipeline.sh --input_fasta <input_fasta> --db_path <animaltfdb4_tf_db> --deeptfactor_folder <deeptfactor_folder>
 ```
