@@ -74,6 +74,8 @@ og_fasta="$original_dir/$input_fasta"
 # Step 3.1: Move to deeptfactor folder %todo: fix deeptfactor installation so it doesnt have to do this
 cd "$deeptfactor_folder" || exit
 
+python tf_running.py -cpu 50 -i "$og_fasta" -o "$original_dir/$(basename ${input_fasta%.faa}).deeptf.res"
+
 # Step 3.2: Check if deeptfactor ran successfully
 if [ $? -ne 0 ]; then
     echo "Error running DeepTFactor"
@@ -84,13 +86,6 @@ cd "$original_dir" || exit
 
 # Step 4: Process results into unique table
 echo "Running python script tf_running.py to merge results..."
-#python tf_running.py -cpu 50 -i "$og_fasta" -o "$original_dir/$(basename ${input_fasta%.faa}).deeptf.res"
-
-# Step 4.1: Check if python script ran successfully
-#if [ $? -ne 0 ]; then
-#    echo "Error running python script"
-#    exit 1
-#fi
 
 python tfa_process.py  --diamond "$(basename ${input_fasta%.faa}).atfdb.1e3.txt" --ips "$(basename ${input_fasta%.faa}).ips_results.tsv" --output $(basename ${input_fasta%.faa})  --deeptf_res "$original_dir/$(basename ${input_fasta%.faa}).deeptf.res/prediction_result.txt"
 
