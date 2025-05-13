@@ -4,6 +4,7 @@
 input_fasta=""
 db_path=""
 deeptfactor_folder=""
+tfs_domains=""
 
 # Parse named arguments
 while [[ "$#" -gt 0 ]]; do
@@ -11,14 +12,15 @@ while [[ "$#" -gt 0 ]]; do
         --input_fasta) input_fasta="$2"; shift ;;
         --db_path) db_path="$2"; shift ;;
         --deeptfactor_folder) deeptfactor_folder="$2"; shift ;;
+	--tfs_domains) tfs_domains="$2"; shift ;;
         *) echo "Unknown parameter: $1"; exit 1 ;;
     esac
     shift
 done
 
 # Check if required arguments are provided
-if [[ -z "$input_fasta" || -z "$db_path" || -z "$deeptfactor_folder" ]]; then
-    echo "Usage: $0 --input_fasta <protein_fasta_file> --db_path <path_to_atfdb_db> --deeptfactor_folder <deeptfactor_folder>"
+if [[ -z "$input_fasta" || -z "$db_path" || -z "$deeptfactor_folder" || -z "$tfs_domains" ]]; then
+    echo "Usage: $0 --input_fasta <protein_fasta_file> --db_path <path_to_atfdb_db> --deeptfactor_folder <deeptfactor_folder> --tfs_domains <dataframe with tfs domains>"
     exit 1
 fi
 
@@ -26,7 +28,7 @@ fi
 echo "Input FASTA file: $input_fasta"
 echo "Database path: $db_path"
 echo "DeepTFactor folder: $deeptfactor_folder"
-
+echo "TFS domains csv: $tfs_domains"
 
 # Define output files
 diamond_output="$(basename ${input_fasta%.faa}).atfdb.1e3.txt"
@@ -87,7 +89,7 @@ cd "$original_dir" || exit
 # Step 4: Process results into unique table
 echo "Running python script tf_running.py to merge results..."
 
-python tfa_process.py  --diamond "$(basename ${input_fasta%.faa}).atfdb.1e3.txt" --ips "$(basename ${input_fasta%.faa}).ips_results.tsv" --output $(basename ${input_fasta%.faa})  --deeptf_res "$original_dir/$(basename ${input_fasta%.faa}).deeptf.res/prediction_result.txt"
+python tfa_process.py  --diamond "$(basename ${input_fasta%.faa}).atfdb.1e3.txt" --tfs_domains "${tfs_domains}" --ips "$(basename ${input_fasta%.faa}).ips_results.tsv" --output $(basename ${input_fasta%.faa})  --deeptf_res "$original_dir/$(basename ${input_fasta%.faa}).deeptf.res/prediction_result.txt"
 
 # Check if the Python script ran successfully
 if [ $? -ne 0 ]; then

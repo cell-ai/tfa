@@ -9,12 +9,13 @@ parser.add_argument('--diamond', type=str, help='diamond result')
 parser.add_argument('--ips', type=str, help='interproscan result')
 parser.add_argument('--deeptf_res', type=str, help='deeptfactor result')
 parser.add_argument('--output', type=str, help='name to be used in output')
+parser.add_argument('--tfs_domains', type = str, help = 'dataframe with known TF domains (PFAM)')
 
 # Parse arguments
 args = parser.parse_args()
 
 
-known_DomTFS=pd.read_csv("TFsdomains.csv", sep=',', header=None, names=['family', 'domain'])
+known_DomTFS=pd.read_csv(args.tfs_domains, sep=',', header=None, names=['family', 'domain'])
 known=known_DomTFS.explode('domain')
 
 family_dict = known_DomTFS.groupby('family')['domain'].apply(lambda x: x.tolist() if len(x) > 1 else x.iloc[0]).to_dict()
@@ -131,9 +132,9 @@ def add_existence_column(df1, df2, column_name, new_column_name = 'DeepTFactor p
 
 homology_df = add_existence_column(diam_ips_df, deeptf_df, 'qseqid')
 homology_df['type'] = "homology"
-cols = [col for col in df.columns if col != 'source']
-cols.append('source')
-homology_df = homology_df[cols]
+#cols = [col for col in df.columns if col != 'source']
+#cols.append('source')
+homology_df = homology_df[[col for col in df.columns if col != 'source']]
 homology_df = homology_df.merge(deeptf_df, on = "qseqid")
 #homology_df.to_csv(output_name + ".homologytfs.csv", header=True, index=False)
 
@@ -146,6 +147,15 @@ exclusive_deeptf_df = exclusive_deeptf_df.rename(columns = {"prediction": "DeepT
 exclusive_deeptf_df['type'] = "no homology"
 #exclusive_deeptf_df.to_csv(output_name + ".no_homologytfs.csv", header=True, index=False)
 
-merged_results = pd.merge(homology_df, exclusive_deeptf_df, on=['qseqid', 'DeepTFactor prediction', 'type', "score"], how='outer').fillna("-").drop_duplicates()
+print(exclusive_deeptf_df.columns)
+print(homology_df.columns)
 
+merged_results = pd.merge(homology_df, exclusive_deeptf_df, on=["qseqid", "DeepTFactor prediction", "type", "score"], how='outer').fillna("-").drop_duplicates()
+low_score_no_homology = merged_results[(merged_results['type'] == "no homology") & 
+                                     (merged_results['score'].astype(float) < 0.5)]
+                                     
+#low_score_no_homology.to_csv(output_name + ".low_score_filtered_out.csv", header=True, index=False)
+
+merged_results = merged_results[~((merged_results['type'] == "no homology") & 
+                               (merged_results['score'].astype(float) < 0.5))]
 merged_results.to_csv(output_name + ".tfa_results.csv", header=True, index=False)
