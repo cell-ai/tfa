@@ -1,15 +1,8 @@
 # tfa: transcription factor annotator #
 
-Understanding how phenotypes emerge from regulatory interactions is one of the central challenges in Systems Biology. This challenge becomes even more daunting when studying non-model organisms, which make up the vast majority of the existing biodiversity. To address this, a crucial step forward is the comprehensive annotation of Transcription Factors (TFs). Such annotations can significantly refine the search space of variables and of potential gene regulators analyzed. However, most existing TF databases are heavily biased toward model organisms, particularly vertebrates. To bridge this gap, we developed a transcription factor annotator (tfa) designed to broaden the scope of TF annotation beyond traditional model systems.
+Understanding how phenotypes emerge from regulatory interactions is one of the central challenges in Systems Biology. This challenge becomes more daunting when studying non-model organisms, which make up the vast majority of the existing biodiversity. To address this problem, a crucial step forward is the comprehensive annotation of Transcription Factors (TFs). Such annotations can significantly refine the search space of variables and of potential gene regulators analyzed. However, most existing TF databases are heavily biased toward model organisms, particularly vertebrates. To bridge this gap, we developed a transcription factor annotator (tfa) designed to broaden the scope of TF annotation beyond traditional model systems.
 
-
-**tfa is  a pipeline developed for the annotation of putative TF sequences from protein sequence files**. The pipeline searches for putative TFs using two strategies:
-
-+ **homology-based search**: An AnimalTFDB4 [1] database is constructed for DIAMOND blastp search [2]. The results are filtered by an e-value of 1e-3 and limited to one maximum target sequence per query sequence. A new FASTA file is created with sequences that had a blast hit, which is then used for an InterProScan search [3] against the PFAM database [4], using a reference list to consider the presence of TF-DNA binding domains (TFsdomains.csv). This step checks if the hit sequences contain the conserved domain representative of the matched TF family. Finally, sequences are filtered using DeepTFactor [5], which classifies protein sequences based on features to determine their likelihood of being TFs. The resulting dataframe (output_homologytfs.csv) contains query proteins identified by similarity and domain conservation, along with a column showing the probability of the protein being a TF according to DeepTFactor.
-
-+ **protein features-based search**: The entire FASTA file is used as input for DeepTFactor [5]. This approach can identify potential TFs that might be missed by homology-based searches. The output is a table (output_no_homolytfs.csv) containing the query sequences and the probability of each protein being a TF based on its features.
-
-The output is a dataframe (saved to file with the extension "tfa_results.csv"), which contains the information of what strategy was used to identify the protein ("homology" vs. "no homology"), the DeepTFactor score, and in the case of TFs identified by homology, additional information regarding protein, TF family and domains identified is also present.
+**tfa is  a pipeline developed for the annotation of putative TF sequences from protein sequence files**.
 
 **References:**
 
@@ -35,5 +28,5 @@ diamond makedb --in <fasta_file_animaltfdb4> --db <animaltfdb4_tf_db>
 ```
 ```
 #run tfa
-tfa_pipeline.sh --input_fasta <input_fasta> --db_path <animaltfdb4_tf_db> --deeptfactor_folder <deeptfactor_folder>
+tfa_v2.0.sh --input_fasta <protein_fasta_file> --db_path <path_to_atfdb_db> --deeptfactor_folder <deeptfactor_folder> --tfs_domains <dataframe with tfs domains> --output_prefix <prefix used in of output files>"
 ```
