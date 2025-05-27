@@ -4,6 +4,8 @@ Understanding how phenotypes emerge from regulatory interactions is one of the c
 
 **tfa is  a pipeline developed for the annotation of putative TF sequences from protein sequence files**.
 
+![title](images/workflow.png)
+
 **References:**
 
 [1] Shen, W. K., Chen, S. Y., Gan, Z. Q., Zhang, Y. Z., Yue, T., Chen, M. M., ... & Guo, A. Y. (2023). AnimalTFDB 4.0: a comprehensive animal transcription factor database updated with variation and expression annotations. Nucleic acids research, 51(D1), D39-D45.
