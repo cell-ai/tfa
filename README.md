@@ -23,8 +23,8 @@ Understanding how phenotypes emerge from regulatory interactions is one of the c
 
 Usage:
 ```
-#create database for similairty search
-diamond makedb --in <fasta_file_animaltfdb4> --db <animaltfdb4_tf_db>
+#create database for similairty search using fasta files from uniprot
+diamond makedb --in <uniprot_fasta> --db <uniprot_db>
 ```
 ```
 #run tfa
