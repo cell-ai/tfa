@@ -1,5 +1,19 @@
 #!/bin/bash
 
+#
+# ============================================
+#  Program Name : tfa_v2.0.sh
+#  Description  : Transcription Factor annotation based on amino acid sequences.
+#  Version      : 2.0.0
+#  Author       : Marcela Akemi Ishihara
+#  Language     : Bash (GNU/Linux)
+#  Created On   : 2025-05-27
+#  Last Updated : 2025-11-20
+#
+#  Usage        : ./tfa_v2.0.sh [options]
+# ============================================
+#
+
 ##########-------------##########-------------##########-------------##########-------------##########-------------
 #Step 0: Initialize and parameter check
 # Initialize variables
@@ -79,7 +93,6 @@ fi
 echo "Filtered fasta of putative TFs created: $filtered_fasta"
 
 ##########-------------##########-------------##########-------------##########-------------##########-------------
-
 # Step 2: Run diamond blastp
 echo "Running diamond blastp..."
 
@@ -109,6 +122,7 @@ if [ ! -s "$interproscan_output" ]; then
     exit 1
 fi
 
+##########-------------##########-------------##########-------------##########-------------##########-------------
 # Step 4: Process results into unique table
 echo "Running python script tf_running.py to process results..."
 
