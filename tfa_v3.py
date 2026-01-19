@@ -203,10 +203,30 @@ def main():
     ], "DIAMOND")
 
     # ---- Filter FASTA ----
-    run(["cut", "-f1", diamond_out], "EXTRACT HEADERS")
-    run(["seqtk", "subseq", args.input_fasta, tf_headers], "SEQTK")
 
-    os.rename("stdout", filtered_fasta) if os.path.exists("stdout") else None
+    # 1. Extract TF headers from Diamond output
+    with open(tf_headers, "w") as out:
+        subprocess.run(
+            ["cut", "-f1", diamond_out],
+            stdout=out,
+            check=True
+        )
+
+    # Debug / safety check
+    if not os.path.exists(tf_headers) or os.path.getsize(tf_headers) == 0:
+        sys.exit(f"ERROR: {tf_headers} is empty or missing")
+
+    # 2. Filter original FASTA using seqtk
+    with open(filtered_fasta, "w") as out:
+        subprocess.run(
+            ["seqtk", "subseq", args.input_fasta, tf_headers],
+            stdout=out,
+            check=True
+        )
+
+    # Safety check
+    if os.path.getsize(filtered_fasta) == 0:
+        sys.exit("ERROR: Filtered FASTA is empty")
 
     # ---- InterProScan ----
     run([
