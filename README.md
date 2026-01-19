@@ -30,5 +30,5 @@ diamond makedb --in <uniprot_fasta> --db <uniprot_db>
 ```
 ```
 #run tfa
-tfa_v2.0.sh --input_fasta <protein_fasta_file> --db_path <path_to_atfdb_db> --deeptfactor_folder <deeptfactor_folder> --tfs_domains <dataframe with tfs domains> --output_prefix <prefix used in of output files>"
+tfa_v3.py --input_fasta <protein_fasta_file> --db_path <path_to_atfdb_db> --deeptfactor_folder <deeptfactor_folder> --tfs_domains <dataframe with tfs domains> --output_prefix <prefix used in of output files>"
 ```
