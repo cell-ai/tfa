@@ -2,9 +2,6 @@
 
 Understanding how phenotypes emerge from regulatory interactions is one of the central challenges in Systems Biology. This challenge is exarcebate when studying non-model organisms, which actually make up the vast majority of the existing biodiversity. To address this problem, a crucial step is the comprehensive annotation of Transcription Factors (TFs). Such annotations can significantly refine the search space of variables and of potential gene regulators analyzed. However, most existing TF databases are heavily biased toward model organisms, particularly vertebrates. To bridge this gap, we developed a TF annotator (tfa) designed to broaden the scope of TF annotation beyond traditional model systems.
 
-**tfa is  a pipeline developed for the annotation of putative TF sequences from protein sequence files**.
-
-![title](images/workflow.png)
 
 **References:**
 
