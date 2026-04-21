@@ -1,32 +1,120 @@
-# tfa: transcription factor annotator #
+# 🧬 tfa: Transcription Factor Annotator
 
-Understanding how phenotypes emerge from regulatory interactions is one of the central challenges in Systems Biology. This challenge is exarcebate when studying non-model organisms, which actually make up the vast majority of the existing biodiversity. To address this problem, a crucial step is the comprehensive annotation of Transcription Factors (TFs). Such annotations can significantly refine the search space of variables and of potential gene regulators analyzed. However, most existing TF databases are heavily biased toward model organisms, particularly vertebrates. To bridge this gap, we developed a TF annotator (tfa) designed to broaden the scope of TF annotation beyond traditional model systems.
+tfa is a pipeline for high-confidence transcription factor (TF) annotation designed to work beyond traditional model organisms. It integrates sequence similarity, domain annotation, and deep learning predictions to identify and classify TFs from protein sequences.
 
-tfa combines sequence similarity searches, domain annotation, and machine learning prediction to produce high-confidence TF annotations. First, it uses DIAMOND to compare input sequences against a reference TF database and retains likely TF candidates. These candidates are then filtered and scanned with InterProScan to detect conserved protein domains (especially DNA-binding domains). In parallel, DeepTFactor applies a deep learning model to predict whether each sequence functions as a transcription factor. The results from all tools are merged, and sequences are filtered based on prediction score, removal of transposases, and presence of known TF domains. Finally, each sequence is assigned to a TF family based on its domain composition, and a consolidated results table is generated with annotations, similarity metrics, domain information, and family classification.
+📖 **Overview**
 
-**References:**
+Understanding how phenotypes emerge from regulatory interactions is a central challenge in Systems Biology. This challenge becomes more pronounced when studying non-model organisms, which make up the vast majority of biodiversity but lack comprehensive functional annotation.
 
-[1] Shen, W. K., Chen, S. Y., Gan, Z. Q., Zhang, Y. Z., Yue, T., Chen, M. M., ... & Guo, A. Y. (2023). AnimalTFDB 4.0: a comprehensive animal transcription factor database updated with variation and expression annotations. Nucleic acids research, 51(D1), D39-D45.
+A key step in addressing this gap is the accurate identification of transcription factors (TFs). However, most existing TF databases are heavily biased toward model organisms, particularly vertebrates.
 
-[2] Buchfink, B., Xie, C., & Huson, D. H. (2015). Fast and sensitive protein alignment using DIAMOND. Nature methods, 12(1), 59-60.
+tfa was developed to:
 
-[3] Jones, P., Binns, D., Chang, H. Y., Fraser, M., Li, W., McAnulla, C., ... & Hunter, S. (2014). InterProScan 5: genome-scale protein function classification. Bioinformatics, 30(9), 1236-1240.
+Expand TF annotation to diverse organisms
+Reduce the search space of candidate regulators
+Provide reproducible and scalable TF predictions
 
-[4] Bateman, A., Coin, L., Durbin, R., Finn, R. D., Hollich, V., Griffiths‐Jones, S., ... & Eddy, S. R. (2004). The Pfam protein families database. Nucleic acids research, 32(suppl_1), D138-D141.
+⚙️ **Pipeline Overview**
 
-[5] Kim, G. B., Gao, Y., Palsson, B. O., & Lee, S. Y. (2021). DeepTFactor: A deep learning-based tool for the prediction of transcription factors. Proceedings of the National Academy of Sciences, 118(2), e2021171118.
-  
-**Requirements:**
-+ [DIAMOND](https://github.com/bbuchfink/diamond)  
-+ [InterProScan](https://interproscan-docs.readthedocs.io/en/latest/HowToDownload.html)
-+ [DeepTFactor](https://bitbucket.org/kaistsystemsbiology/deeptfactor/src/master/)
+tfa combines multiple complementary approaches to generate robust TF annotations:
 
-Usage:
+1. 🔍 Sequence Similarity Search
+Uses DIAMOND to align input proteins against a reference TF database
+Retains candidate TF sequences
+2. 🧩 Domain Annotation
+Uses InterProScan
+Detects conserved domains (especially DNA-binding domains)
+3. 🤖 Machine Learning Prediction
+Uses DeepTFactor
+Predicts TF likelihood using deep neural networks
+4. 🧹 Filtering & Integration
+
+Results are merged and filtered based on:
+
+Prediction scores
+Removal of transposases
+Presence of known TF-associated domains
+5. 🧬 TF Family Classification
+Assigns TF families based on domain composition
+6. 📊 Output Generation
+
+Produces a consolidated results table including:
+
+TF predictions
+Similarity metrics
+Domain annotations
+TF family classification
+📦 Requirements
+
+Make sure the following tools are installed:
+
+DIAMOND
+InterProScan
+DeepTFactor
+🚀 Installation
+
+Clone the repository:
+
 ```
-#create database for similairty search using fasta files from uniprot
-diamond makedb --in <uniprot_fasta> --db <uniprot_db>
+git clone https://github.com/yourusername/tfa.git
+
+cd tfa
 ```
+
+Install dependencies (example using pip):
+
+pip install -r requirements.txt
+🧪 Usage
+1. Create DIAMOND Database
+```diamond makedb --in <uniprot_fasta> --db <uniprot_db>```
+2. Run tfa
 ```
-#run tfa
-tfa.py --input_fasta <protein_fasta_file> --db_path <path_to_atfdb_db> --deeptfactor_folder <deeptfactor_folder> --tfs_domains <dataframe with tfs domains> --output_prefix <prefix used in of output files>"
+tfa.py \
+  --input_fasta <protein_fasta_file> \
+  --db_path <path_to_tf_database> \
+  --deeptfactor_folder <deeptfactor_folder> \
+  --tfs_domains <tf_domains_dataframe> \
+  --output_prefix <output_prefix>
 ```
+📂 Output
+
+tfa generates:
+
+Annotated TF prediction table
+Domain annotation results
+Similarity search metrics
+TF family classifications
+
+All outputs are prefixed using --output_prefix.
+
+📁 Example Results and Benchmark Data
+
+This repository includes a results/ folder containing example outputs generated during the development of the tfa pipeline. These datasets were used to guide parameter selection, validate filtering criteria, and evaluate the integration of similarity, domain, and machine learning predictions.
+
+Providing these results serves two purposes:
+
+Transparency and reproducibility
+Users can inspect intermediate and final outputs to understand how predictions are generated.
+Practical reference
+Users can compare their own results against these examples to verify correct pipeline execution and expected output structure.
+
+These files represent real use cases that motivated the development of tfa and illustrate its performance on biological datasets.
+
+📚 References
+Shen et al. (2023) – AnimalTFDB 4.0
+Buchfink et al. (2015) – DIAMOND
+Jones et al. (2014) – InterProScan
+Bateman et al. (2004) – Pfam
+Kim et al. (2021) – DeepTFactor
+
+🤝 Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+📄 License
+
+This project is licensed under the MIT License.
+
+✨ Citation
+
+If you use tfa in your research, please cite the relevant tools and databases listed above.
