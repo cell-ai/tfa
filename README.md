@@ -17,41 +17,43 @@ Provide reproducible and scalable TF predictions
 ⚙️ **Pipeline Overview**
 
 tfa combines multiple complementary approaches to generate robust TF annotations:
+- 🔍 **Sequence Similarity Search**
+  - Uses DIAMOND to align input proteins
+  - Retains candidate TF sequences
 
-1. 🔍 Sequence Similarity Search
-Uses DIAMOND to align input proteins against a reference TF database
-Retains candidate TF sequences
-2. 🧩 Domain Annotation
-Uses InterProScan
-Detects conserved domains (especially DNA-binding domains)
-3. 🤖 Machine Learning Prediction
-Uses DeepTFactor
-Predicts TF likelihood using deep neural networks
-4. 🧹 Filtering & Integration
+- 🧩 **Domain Annotation**
+  - Uses InterProScan
+  - Detects conserved DNA-binding domains
 
-Results are merged and filtered based on:
+- 🤖 **Machine Learning Prediction**
+  - Uses DeepTFactor
+  - Predicts TF likelihood
 
-Prediction scores
-Removal of transposases
-Presence of known TF-associated domains
-5. 🧬 TF Family Classification
-Assigns TF families based on domain composition
-6. 📊 Output Generation
+- 🧹 **Filtering & Integration**
+  - Merges results and applies filters
 
-Produces a consolidated results table including:
+**Results are merged and filtered based on:**
 
-TF predictions
-Similarity metrics
-Domain annotations
-TF family classification
-📦 Requirements
+- Prediction scores
+- Removal of transposases
+- Presence of known TF-associated domains
+
+**Produces a consolidated results table including:**
+
+- TF predictions
+- Similarity metrics
+- Domain annotations
+- TF family classification
+
+📦 **Requirements**
 
 Make sure the following tools are installed:
 
-DIAMOND
-InterProScan
-DeepTFactor
-🚀 Installation
+- DIAMOND
+- InterProScan
+- DeepTFactor
+
+🚀 **Installation**
 
 Clone the repository:
 
