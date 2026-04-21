@@ -89,8 +89,6 @@ TF family classifications
 
 All outputs are prefixed using --output_prefix.
 
-📁 Example Results and Benchmark Data
-
 
 📚 References
 Shen et al. (2023) – AnimalTFDB 4.0
