@@ -91,16 +91,6 @@ All outputs are prefixed using --output_prefix.
 
 📁 Example Results and Benchmark Data
 
-This repository includes a results/ folder containing example outputs generated during the development of the tfa pipeline. These datasets were used to guide parameter selection, validate filtering criteria, and evaluate the integration of similarity, domain, and machine learning predictions.
-
-Providing these results serves two purposes:
-
-Transparency and reproducibility
-Users can inspect intermediate and final outputs to understand how predictions are generated.
-Practical reference
-Users can compare their own results against these examples to verify correct pipeline execution and expected output structure.
-
-These files represent real use cases that motivated the development of tfa and illustrate its performance on biological datasets.
 
 📚 References
 Shen et al. (2023) – AnimalTFDB 4.0
